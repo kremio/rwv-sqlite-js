@@ -23,7 +23,7 @@ class JSONToString extends Transform {
 
   _transform( input, encoding, cb){
     try{
-      cb(null, JSON.stringify(input) )
+      cb(null, JSON.stringify(input)+"\n" )
     }catch(e){
       cb(e)
     }

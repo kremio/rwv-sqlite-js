@@ -1,0 +1,29 @@
+{
+  "name": "rwv-sqlite",
+  "version": "0.0.1",
+  "description": "A module to handle the setup of a SQLITE database and the insertion of records from Right-Wing violence reports in JSON.",
+  "main": "index.js",
+  "scripts": {
+    "dbmigrate": "db-migrate --config ./config/database.json",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kremio/rwv-sqlite-js.git"
+  },
+  "author": "Jonathan Crémieux <jonathan@krem.io> (https://krem.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kremio/rwv-sqlite-js/issues"
+  },
+  "homepage": "https://github.com/kremio/rwv-sqlite-js#readme",
+  "dependencies": {
+    "db-migrate": "^0.11.3",
+    "db-migrate-sqlite3": "^0.3.1",
+    "rwv-schema": "git+https://github.com/kremio/rwv-schema-js.git",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}

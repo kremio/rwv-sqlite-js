@@ -15,15 +15,6 @@ describe('Inserting a report', () => {
 
   afterEach( () => db.close() )
 
-  /*
-   * Somehow a 'warm-up' request is necessary otherwise the
-   * migrations are not always run...
-   * TODO: This makes the tests flaky, fix it!
-   */
-  test( 'Table created', async (done) => {
-    db.db.each("SELECT * FROM sqlite_master WHERE type='table'", (err,d) => {}, done)
-  })
-
   test( 'Reject invalid report', async (done) => {
     try{
       await reportInsert({}, db)

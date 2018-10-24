@@ -58,10 +58,11 @@ describe('Inserting reports using a stream', () => {
    * migrations are not always run...
    * TODO: This makes the tests flaky, fix it!
    */
+  
   test( 'Table created', async (done) => {
     insertStream.getDB().db.each("SELECT * FROM sqlite_master WHERE type='table'", (err,d) => {}, done)
   })
-
+  
 
   test( 'Insert a single report' , async (done) => {
 

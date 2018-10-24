@@ -15,16 +15,6 @@ describe('Inserting the sources of a report', () => {
   
   afterEach( () => db.close() )
 
-  /*
-   * Somehow a 'warm-up' request is necessary otherwise the
-   * migrations are not always run...
-   * TODO: This makes the tests flaky, fix it!
-   */
-  test( 'Table created', async (done) => {
-    db.db.each("SELECT * FROM sqlite_master WHERE type='table'", () => {}, done)
-  })
-
-
   test( 'Insert source', async (done) => {
     const result = await sourceInsert(sampleValidReport, db)
     const spy = jest.fn()

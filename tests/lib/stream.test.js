@@ -1,5 +1,6 @@
 const sampleValidReport = require('rwv-schema/sample.json')
 const { Readable } = require('stream')
+
 const getDB = require('../../lib/db')
 const InsertStream = require('../../lib/stream')
 
@@ -113,7 +114,7 @@ describe('Inserting reports using a stream', () => {
     })
   })
 
-  test( 'Atomic operation', async (done) => {
+  test( 'Atomic operation and error handling', async (done) => {
 
     /*
      * Need to clear the module cache in order to 
@@ -121,16 +122,21 @@ describe('Inserting reports using a stream', () => {
      */
     jest.resetModules()
     jest.mock( '../../lib/location', () => async () => {
-      return Promise.reject( 'test' )
+      return Promise.reject( new Error('test') )
     })
+
+    //WATCHOUT! Because of the call to jest.resetModules, if InsertError was
+    //required before, the expect.toBeInstanceOf would fail.
+    const {InsertError} = require('../../lib/error-classes')
 
     const _InsertStream = require('../../lib/stream')
 
     const _insertStream = new _InsertStream({},insertStream.getDB())
 
     _insertStream.on('error', (err) => {
-      //console.log(err)
-      expect(err).toEqual('test')
+      expect(err).toBeInstanceOf( InsertError )
+      expect(err.message).toEqual('test')
+      expect(err.reportURI).toEqual( sampleValidReport.uri )
       const db = _insertStream.getDB().db
       db.all('SELECT * FROM data', (err, c) => {
         expect(err).toBeNull()

@@ -23,7 +23,7 @@ describe('Inserting report by running a command', () => {
 
   /*
    * Somehow a 'warm-up' request is necessary otherwise the
-   * migrations are not always run...
+   * migrations are not executed...
    * TODO: This makes the tests flaky, fix it!
    */
   test( 'Table created', async (done) => {
